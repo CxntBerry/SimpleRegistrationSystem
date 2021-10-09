@@ -7,6 +7,18 @@ std::string input2;
 std::string input3;
 std::string output1;
 
+std::string encryptdecrypt(std::string text)
+{
+    char Key = 'D';
+    std::string encrypted = text;
+    for (int i = 0; i < text.size(); i++)
+    {
+        encrypted[i] = text[i] ^ Key;
+        return encrypted;
+    }
+}
+
+
 int registeruser()
 {
     std::cout << "Please enter a username: ";
@@ -14,7 +26,7 @@ int registeruser()
     std::cout << "Please enter a password: ";
     std::cin >> input3;
     input2 = input2 + ".txt";
-    std::ifstream userfilecheck(input2);
+    std::ifstream userfilecheck(encryptdecrypt(input2));
 
     if (userfilecheck)
     {
@@ -23,8 +35,8 @@ int registeruser()
     }
     else
     {
-        std::ofstream userfile(input2);
-        userfile << input3;
+        std::ofstream userfile(encryptdecrypt(input2));
+        userfile << encryptdecrypt(input3);
         userfile.close();
     }
 }
@@ -34,10 +46,10 @@ int loginuser()
     std::cin >> input2;
     std::cout << "Please enter a password: ";
     std::cin >> input3;
-    input2 = input2 + ".cfg";
-    std::ifstream userfile(input2);
+    input2 = input2 + ".txt";
+    std::ifstream userfile(encryptdecrypt(input2));
     while (std::getline(userfile, output1)) {
-        if (output1 == input3)
+        if (output1 == encryptdecrypt(input3))
         {
             std::cout << "Successfully logged in as: " << input2 << std::endl;
         }
@@ -49,6 +61,7 @@ int loginuser()
     userfile.close();
     return 0;
 }
+
 
 int main()
 {
