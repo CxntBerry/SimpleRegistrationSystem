@@ -11,11 +11,12 @@ std::string encryptdecrypt(std::string text)
 {
     char Key = 'D';
     std::string encrypted = text;
-    for (int i = 0; i < text.size(); i++)
+    for (int i = 0; i <= text.size(); i++)
     {
         encrypted[i] = text[i] ^ Key;
-        return encrypted;
     }
+
+    return encrypted;
 }
 
 
@@ -35,7 +36,7 @@ int registeruser()
     }
     else
     {
-        std::ofstream userfile(encryptdecrypt(input2));
+        std::ofstream userfile(input2);
         userfile << encryptdecrypt(input3);
         userfile.close();
     }
@@ -47,7 +48,7 @@ int loginuser()
     std::cout << "Please enter a password: ";
     std::cin >> input3;
     input2 = input2 + ".txt";
-    std::ifstream userfile(encryptdecrypt(input2));
+    std::ifstream userfile(input2);
     while (std::getline(userfile, output1)) {
         if (output1 == encryptdecrypt(input3))
         {
